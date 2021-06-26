@@ -243,7 +243,7 @@ fi
 if [[ -n ${build_dogecoind} ]]; then
     # Clone dogecoind if it doesn't exist, or update it if it does
     dogecoind_setup_needed=false
-    if [ ! -d "bitcoin" ]; then
+    if [ ! -d "dogecoin" ]; then
         git clone https://github.com/rnicoll/dogecoin.git
         cd dogecoin
 	git checkout 1.21-post-auxpow-branding
