@@ -1,7 +1,7 @@
-Using Bitcoin Core with Hardware Wallets
-****************************************
+Using Dogecoin Core with Hardware Wallets
+*****************************************
 
-This approach is fairly manual, requires the command line, and Bitcoin Core >=0.21.0.
+This approach is fairly manual, requires the command line, and Dogecoin Core >=0.21.0.
 
 Note: For this guide, code lines prefixed with ``$`` means that the command is typed in the terminal. Lines without ``$`` are output of the commands.
 
@@ -13,29 +13,29 @@ We are not liable for any coins that may be lost through this method. The softwa
 Software
 --------
 
-Bitcoin Core
-^^^^^^^^^^^^
+Dogecoin Core
+^^^^^^^^^^^^^
 
-This method of using hardware wallets uses Bitcoin Core as the wallet for monitoring the blockchain. It allows a user to use their own full node instead of relying on an SPV wallet or vendor provided software.
+This method of using hardware wallets uses Dogecoin Core as the wallet for monitoring the blockchain. It allows a user to use their own full node instead of relying on an SPV wallet or vendor provided software.
 
-HWI works with Bitcoin Core >=0.18.0.
-However this guide will require Bitcoin Core >=0.21.0 as it uses Descriptor Wallets.
+HWI works with Dogecoin Core >=0.18.0.
+However this guide will require Dogecoin Core >=0.21.0 as it uses Descriptor Wallets.
 
 Setup
 =====
 
-Clone Bitcoin Core and build it. Clone HWI.
+Clone Dogecoin Core and build it. Clone HWI.
 
 ::
 
-    $ git clone https://github.com/bitcoin/bitcoin.git
-    $ cd bitcoin
+    $ git clone https://github.com/dogecoin/dogecoin.git
+    $ cd dogecoin
     $ ./autogen.sh
     $ ./configure
     $ make
-    $ src/bitcoind -daemon -addresstype=bech32 -changetype=bech32
+    $ src/dogecoind -daemon -addresstype=bech32 -changetype=bech32
     $ cd ..
-    $ git clone https://github.com/bitcoin-core/HWI.git
+    $ git clone https://github.com/dogecoin-core/HWI.git
     $ cd HWI
     $ python3 setup.py install
 
@@ -55,16 +55,16 @@ specified, both receiving and change address descriptors are generated.
     $ ./hwi.py -f e5dbc9cb getkeypool 0 1000
     [{"desc": "wpkh([e5dbc9cb/84'/0'/0']xpub6CbtS57jivMSuzcvp5YZxp6JhUU8YWup2axi2xkQRVHY8w4otp8YkEvfWBHgE5rA2AJYNHquuRoLFFdWeSi1UgVohcUeM7SkE9c8NftRwRJ/0/*)#cwyap6p3", "range": [0, 1000], "timestamp": "now", "internal": false, "keypool": true, "active": true, "watchonly": true}, {"desc": "wpkh([e5dbc9cb/84'/0'/0']xpub6CbtS57jivMSuzcvp5YZxp6JhUU8YWup2axi2xkQRVHY8w4otp8YkEvfWBHgE5rA2AJYNHquuRoLFFdWeSi1UgVohcUeM7SkE9c8NftRwRJ/1/*)#f6puu03f", "range": [0, 1000], "timestamp": "now", "internal": true, "keypool": true, "active": true, "watchonly": true}]
 
-We now create a new Bitcoin Core Descriptor Wallet and import the keys into Bitcoin Core. The output is formatted properly for Bitcoin Core so it can be copy and pasted.
+We now create a new Dogecoin Core Descriptor Wallet and import the keys into Dogecoin Core. The output is formatted properly for Dogecoin Core so it can be copy and pasted.
 
 ::
 
-    $ ../bitcoin/src/bitcoin-cli -named createwallet wallet_name=hwicoldcard disable_private_keys=true descriptors=true
+    $ ../dogecoin/src/dogecoin-cli -named createwallet wallet_name=hwicoldcard disable_private_keys=true descriptors=true
     {
       "name": "hwicoldcard",
       "warning": "Wallet is an experimental descriptor wallet"
     }
-    $ ../bitcoin/src/bitcoin-cli -rpcwallet=hwicoldcard importdescriptors '[{"desc": "wpkh([e5dbc9cb/84\'/0\'/0\']xpub6CbtS57jivMSuzcvp5YZxp6JhUU8YWup2axi2xkQRVHY8w4otp8YkEvfWBHgE5rA2AJYNHquuRoLFFdWeSi1UgVohcUeM7SkE9c8NftRwRJ/0/*)#cwyap6p3", "range": [0, 1000], "timestamp": "now", "internal": false, "keypool": true, "active": true, "watchonly": true}, {"desc": "wpkh([e5dbc9cb/84\'/0\'/0\']xpub6CbtS57jivMSuzcvp5YZxp6JhUU8YWup2axi2xkQRVHY8w4otp8YkEvfWBHgE5rA2AJYNHquuRoLFFdWeSi1UgVohcUeM7SkE9c8NftRwRJ/1/*)#f6puu03f", "range": [0, 1000], "timestamp": "now", "internal": true, "keypool": true, "active": true, "watchonly": true}]'
+    $ ../dogecoin/src/dogecoin-cli -rpcwallet=hwicoldcard importdescriptors '[{"desc": "wpkh([e5dbc9cb/84\'/0\'/0\']xpub6CbtS57jivMSuzcvp5YZxp6JhUU8YWup2axi2xkQRVHY8w4otp8YkEvfWBHgE5rA2AJYNHquuRoLFFdWeSi1UgVohcUeM7SkE9c8NftRwRJ/0/*)#cwyap6p3", "range": [0, 1000], "timestamp": "now", "internal": false, "keypool": true, "active": true, "watchonly": true}, {"desc": "wpkh([e5dbc9cb/84\'/0\'/0\']xpub6CbtS57jivMSuzcvp5YZxp6JhUU8YWup2axi2xkQRVHY8w4otp8YkEvfWBHgE5rA2AJYNHquuRoLFFdWeSi1UgVohcUeM7SkE9c8NftRwRJ/1/*)#f6puu03f", "range": [0, 1000], "timestamp": "now", "internal": true, "keypool": true, "active": true, "watchonly": true}]'
     [
       {
         "success": true
@@ -74,43 +74,43 @@ We now create a new Bitcoin Core Descriptor Wallet and import the keys into Bitc
       }
     ]
 
-The Bitcoin Core wallet is now setup to watch two thousand keys (1000 normal, 1000 change) from your hardware wallet and you can use it to track your balances and create transactions. The transactions will need to be signed through HWI.
+The Dogecoin Core wallet is now setup to watch two thousand keys (1000 normal, 1000 change) from your hardware wallet and you can use it to track your balances and create transactions. The transactions will need to be signed through HWI.
 
 If the wallet was previously used, you will need to rescan the blockchain. You can either do this using the ``rescanblockchain`` command or editing the ``timestamp`` in the ``importdescriptors`` command.
 Here are some examples (``<blockheight>`` refers to a block height before the wallet was created).
 
 ::
 
-    $ ../bitcoin/src/bitcoin-cli rescanblockchain <blockheight>
-    $ ../bitcoin/src/bitcoin-cli rescanblockchain 500000 # Rescan from block 500000
+    $ ../dogecoin/src/dogecoin-cli rescanblockchain <blockheight>
+    $ ../dogecoin/src/dogecoin-cli rescanblockchain 500000 # Rescan from block 500000
 
-    $ ../bitcoin/src/bitcoin-cli -rpcwallet=hwicoldcard importdescriptors '[{"desc": "wpkh([e5dbc9cb/84\'/0\'/0\']xpub6CbtS57jivMSuzcvp5YZxp6JhUU8YWup2axi2xkQRVHY8w4otp8YkEvfWBHgE5rA2AJYNHquuRoLFFdWeSi1UgVohcUeM7SkE9c8NftRwRJ/0/*)#cwyap6p3", "range": [0, 1000], "timestamp": <blockheight>, "internal": false, "keypool": true, "active": true, "watchonly": true}, {"desc": "wpkh([e5dbc9cb/84\'/0\'/0\']xpub6CbtS57jivMSuzcvp5YZxp6JhUU8YWup2axi2xkQRVHY8w4otp8YkEvfWBHgE5rA2AJYNHquuRoLFFdWeSi1UgVohcUeM7SkE9c8NftRwRJ/1/*)#f6puu03f", "range": [0, 1000], "timestamp": <blockheight>, "internal": true, "keypool": true, "active": true, "watchonly": true}]'
-    $ ../bitcoin/src/bitcoin-cli -rpcwallet=hwicoldcard importdescriptors '[{"desc": "wpkh([e5dbc9cb/84\'/0\'/0\']xpub6CbtS57jivMSuzcvp5YZxp6JhUU8YWup2axi2xkQRVHY8w4otp8YkEvfWBHgE5rA2AJYNHquuRoLFFdWeSi1UgVohcUeM7SkE9c8NftRwRJ/0/*)#cwyap6p3", "range": [0, 1000], "timestamp": 500000, "internal": false, "keypool": true, "active": true, "watchonly": true}, {"desc": "wpkh([e5dbc9cb/84\'/0\'/0\']xpub6CbtS57jivMSuzcvp5YZxp6JhUU8YWup2axi2xkQRVHY8w4otp8YkEvfWBHgE5rA2AJYNHquuRoLFFdWeSi1UgVohcUeM7SkE9c8NftRwRJ/1/*)#f6puu03f", "range": [0, 1000], "timestamp": 500000, "internal": true, "keypool": true, "active": true, "watchonly": true}]' # Imports and rescans from block 500000
+    $ ../dogecoin/src/dogecoin-cli -rpcwallet=hwicoldcard importdescriptors '[{"desc": "wpkh([e5dbc9cb/84\'/0\'/0\']xpub6CbtS57jivMSuzcvp5YZxp6JhUU8YWup2axi2xkQRVHY8w4otp8YkEvfWBHgE5rA2AJYNHquuRoLFFdWeSi1UgVohcUeM7SkE9c8NftRwRJ/0/*)#cwyap6p3", "range": [0, 1000], "timestamp": <blockheight>, "internal": false, "keypool": true, "active": true, "watchonly": true}, {"desc": "wpkh([e5dbc9cb/84\'/0\'/0\']xpub6CbtS57jivMSuzcvp5YZxp6JhUU8YWup2axi2xkQRVHY8w4otp8YkEvfWBHgE5rA2AJYNHquuRoLFFdWeSi1UgVohcUeM7SkE9c8NftRwRJ/1/*)#f6puu03f", "range": [0, 1000], "timestamp": <blockheight>, "internal": true, "keypool": true, "active": true, "watchonly": true}]'
+    $ ../dogecoin/src/dogecoin-cli -rpcwallet=hwicoldcard importdescriptors '[{"desc": "wpkh([e5dbc9cb/84\'/0\'/0\']xpub6CbtS57jivMSuzcvp5YZxp6JhUU8YWup2axi2xkQRVHY8w4otp8YkEvfWBHgE5rA2AJYNHquuRoLFFdWeSi1UgVohcUeM7SkE9c8NftRwRJ/0/*)#cwyap6p3", "range": [0, 1000], "timestamp": 500000, "internal": false, "keypool": true, "active": true, "watchonly": true}, {"desc": "wpkh([e5dbc9cb/84\'/0\'/0\']xpub6CbtS57jivMSuzcvp5YZxp6JhUU8YWup2axi2xkQRVHY8w4otp8YkEvfWBHgE5rA2AJYNHquuRoLFFdWeSi1UgVohcUeM7SkE9c8NftRwRJ/1/*)#f6puu03f", "range": [0, 1000], "timestamp": 500000, "internal": true, "keypool": true, "active": true, "watchonly": true}]' # Imports and rescans from block 500000
 
 Usage
 =====
 
-Usage of this primarily involves Bitcoin Core. Currently the GUI only supports generating new receive addresses (once all of the keys are imported) so this guide will only cover the command line.
+Usage of this primarily involves Dogecoin Core. Currently the GUI only supports generating new receive addresses (once all of the keys are imported) so this guide will only cover the command line.
 
 Receiving
 ---------
 
-From the folder containing ``bitcoin`` and ``HWI``, go into ``bitcoin``. We will be doing most of the commands here.
+From the folder containing ``dogecoin`` and ``HWI``, go into ``dogecoin``. We will be doing most of the commands here.
 
 ::
 
-    $ cd bitcoin
+    $ cd dogecoin
 
 To get a new address, use ``getnewaddress`` as you normally would
 
 ::
 
-    $ src/bitcoin-cli -rpcwallet=hwicoldcard getnewaddress
+    $ src/dogecoin-cli -rpcwallet=hwicoldcard getnewaddress
     bc1q2xsn08w749d2tfm7qrkvztlxfmq2564sly4dwl
 
 This address belongs to your hardware wallet. You can check this by doing ``getaddressinfo``::
 
-    $ src/bitcoin-cli -rpcwallet=hwicoldcard getaddressinfo bc1q2xsn08w749d2tfm7qrkvztlxfmq2564sly4dwl
+    $ src/dogecoin-cli -rpcwallet=hwicoldcard getaddressinfo bc1q2xsn08w749d2tfm7qrkvztlxfmq2564sly4dwl
     {
       "address": "bc1q2xsn08w749d2tfm7qrkvztlxfmq2564sly4dwl",
       "scriptPubKey": "001451a1379ddea95aa5a77e00ecc12fe64ec0aa6ab0",
@@ -134,17 +134,17 @@ This address belongs to your hardware wallet. You can check this by doing ``geta
       ]
     }
 
-You can give this out to people as you normally would. When coins are sent to it, you will see them in your Bitcoin Core wallet as watch-only.
+You can give this out to people as you normally would. When coins are sent to it, you will see them in your Dogecoin Core wallet as watch-only.
 
 Sending
 =======
 
-To send Bitcoin, we will use ``walletcreatefundedpsbt``. This will create a Partially Signed Bitcoin Transaction which is funded by inputs from the wallets (i.e. your watching only inputs selected with Bitcoin Core's coin selection algorithm).
+To send Bitcoin, we will use ``walletcreatefundedpsbt``. This will create a Partially Signed Bitcoin Transaction which is funded by inputs from the wallets (i.e. your watching only inputs selected with Dogecoin Core's coin selection algorithm).
 This PSBT can be used with HWI to produce a signed PSBT which can then be finalized and broadcast.
 
 For example, suppose I am sending to 1 BTC to bc1q257z5t76hedc36wmmzva05890ny3kxd7xfwrgy. First I create a funded psbt with BIP 32 derivation paths to be included::
 
-    $ src/bitcoin-cli -rpcwallet=hwicoldcard walletcreatefundedpsbt '[]' '[{"bc1q257z5t76hedc36wmmzva05890ny3kxd7xfwrgy":1}]' 0 '{"includeWatching":true}' true
+    $ src/dogecoin-cli -rpcwallet=hwicoldcard walletcreatefundedpsbt '[]' '[{"bc1q257z5t76hedc36wmmzva05890ny3kxd7xfwrgy":1}]' 0 '{"includeWatching":true}' true
     {
       "psbt": "cHNidP8BAHECAAAAAU8KWkCU7H4MYBiZHmLey6FavV3L3xLfy4tVEZoubx+2AAAAAAD+////AgDh9QUAAAAAFgAUVTwqL9q+W4jp29iZ19DlfMkbGb78eNcXAAAAABYAFLHuX3WRuPs3ypeQOziNw5qFlBH8AAAAAAABAR8AZc0dAAAAABYAFOHBlVRAplXb3rO39IoSBvhnGZEvIgYCIyDxz3Lnuizva+MtdJPOO9TGoldf5RziYDd63BZWA9QYgDjs2VQAAIABAACAAAAAgAAAAAAAAAAAAAAiAgP0HMQ2K693zCXTCudBUzemDhxLmFGETOnAV7vgDz2r9RiAOOzZVAAAgAEAAIAAAACAAQAAAAAAAAAA",
       "fee": 0.00002820,
@@ -154,7 +154,7 @@ For example, suppose I am sending to 1 BTC to bc1q257z5t76hedc36wmmzva05890ny3kx
 
 Now I take the updated psbt and inspect it with ``decodepsbt``::
 
-    $ src/bitcoin-cli decodepsbt cHNidP8BAHECAAAAAU8KWkCU7H4MYBiZHmLey6FavV3L3xLfy4tVEZoubx+2AAAAAAD+////AgDh9QUAAAAAFgAUVTwqL9q+W4jp29iZ19DlfMkbGb78eNcXAAAAABYAFLHuX3WRuPs3ypeQOziNw5qFlBH8AAAAAAABAR8AZc0dAAAAABYAFOHBlVRAplXb3rO39IoSBvhnGZEvIgYCIyDxz3Lnuizva+MtdJPOO9TGoldf5RziYDd63BZWA9QYgDjs2VQAAIABAACAAAAAgAAAAAAAAAAAAAAiAgP0HMQ2K693zCXTCudBUzemDhxLmFGETOnAV7vgDz2r9RiAOOzZVAAAgAEAAIAAAACAAQAAAAAAAAAA
+    $ src/dogecoin-cli decodepsbt cHNidP8BAHECAAAAAU8KWkCU7H4MYBiZHmLey6FavV3L3xLfy4tVEZoubx+2AAAAAAD+////AgDh9QUAAAAAFgAUVTwqL9q+W4jp29iZ19DlfMkbGb78eNcXAAAAABYAFLHuX3WRuPs3ypeQOziNw5qFlBH8AAAAAAABAR8AZc0dAAAAABYAFOHBlVRAplXb3rO39IoSBvhnGZEvIgYCIyDxz3Lnuizva+MtdJPOO9TGoldf5RziYDd63BZWA9QYgDjs2VQAAIABAACAAAAAgAAAAAAAAAAAAAAiAgP0HMQ2K693zCXTCudBUzemDhxLmFGETOnAV7vgDz2r9RiAOOzZVAAAgAEAAIAAAACAAQAAAAAAAAAA
     {
       "tx": {
         "txid": "e51392c82e13bbfe714c73361aff14ac1a1637abf37587a562844ae5a4265adf",
@@ -253,34 +253,33 @@ Follow the onscreen instructions, check everything, and approve the transaction.
 
     {"psbt": "cHNidP8BAHECAAAAAU8KWkCU7H4MYBiZHmLey6FavV3L3xLfy4tVEZoubx+2AAAAAAD+////AgDh9QUAAAAAFgAUVTwqL9q+W4jp29iZ19DlfMkbGb78eNcXAAAAABYAFLHuX3WRuPs3ypeQOziNw5qFlBH8AAAAAAABAR8AZc0dAAAAABYAFOHBlVRAplXb3rO39IoSBvhnGZEvIgICIyDxz3Lnuizva+MtdJPOO9TGoldf5RziYDd63BZWA9RIMEUCIQDMECVXsrFK5XbMQn5yVCvm3zWF1kdCgepf3RSqFDDmAAIgQtty07rN4zBWMjd1qVOtkgOHBAlGaO2Se3LkiNsABYcBAQMEAQAAACIGAiMg8c9y57os72vjLXSTzjvUxqJXX+Uc4mA3etwWVgPUGIA47NlUAACAAQAAgAAAAIAAAAAAAAAAAAAAIgID9BzENiuvd8wl0wrnQVM3pg4cS5hRhEzpwFe74A89q/UYgDjs2VQAAIABAACAAAAAgAEAAAAAAAAAAA=="}
 
-We can now take the PSBT, finalize it, and broadcast it with Bitcoin Core
+We can now take the PSBT, finalize it, and broadcast it with Dogecoin Core
 
 ::
 
-    $ cd ../bitcoin
-    $ src/bitcoin-cli finalizepsbt cHNidP8BAHECAAAAAU8KWkCU7H4MYBiZHmLey6FavV3L3xLfy4tVEZoubx+2AAAAAAD+////AgDh9QUAAAAAFgAUVTwqL9q+W4jp29iZ19DlfMkbGb78eNcXAAAAABYAFLHuX3WRuPs3ypeQOziNw5qFlBH8AAAAAAABAR8AZc0dAAAAABYAFOHBlVRAplXb3rO39IoSBvhnGZEvIgICIyDxz3Lnuizva+MtdJPOO9TGoldf5RziYDd63BZWA9RIMEUCIQDMECVXsrFK5XbMQn5yVCvm3zWF1kdCgepf3RSqFDDmAAIgQtty07rN4zBWMjd1qVOtkgOHBAlGaO2Se3LkiNsABYcBAQMEAQAAACIGAiMg8c9y57os72vjLXSTzjvUxqJXX+Uc4mA3etwWVgPUGIA47NlUAACAAQAAgAAAAIAAAAAAAAAAAAAAIgID9BzENiuvd8wl0wrnQVM3pg4cS5hRhEzpwFe74A89q/UYgDjs2VQAAIABAACAAAAAgAEAAAAAAAAAAA==
+    $ cd ../dogecoin
+    $ src/dogecoin-cli finalizepsbt cHNidP8BAHECAAAAAU8KWkCU7H4MYBiZHmLey6FavV3L3xLfy4tVEZoubx+2AAAAAAD+////AgDh9QUAAAAAFgAUVTwqL9q+W4jp29iZ19DlfMkbGb78eNcXAAAAABYAFLHuX3WRuPs3ypeQOziNw5qFlBH8AAAAAAABAR8AZc0dAAAAABYAFOHBlVRAplXb3rO39IoSBvhnGZEvIgICIyDxz3Lnuizva+MtdJPOO9TGoldf5RziYDd63BZWA9RIMEUCIQDMECVXsrFK5XbMQn5yVCvm3zWF1kdCgepf3RSqFDDmAAIgQtty07rN4zBWMjd1qVOtkgOHBAlGaO2Se3LkiNsABYcBAQMEAQAAACIGAiMg8c9y57os72vjLXSTzjvUxqJXX+Uc4mA3etwWVgPUGIA47NlUAACAAQAAgAAAAIAAAAAAAAAAAAAAIgID9BzENiuvd8wl0wrnQVM3pg4cS5hRhEzpwFe74A89q/UYgDjs2VQAAIABAACAAAAAgAEAAAAAAAAAAA==
     {
       "hex": "020000000001014f0a5a4094ec7e0c6018991e62decba15abd5dcbdf12dfcb8b55119a2e6f1fb60000000000feffffff0200e1f50500000000160014553c2a2fdabe5b88e9dbd899d7d0e57cc91b19befc78d71700000000160014b1ee5f7591b8fb37ca97903b388dc39a859411fc02483045022100cc102557b2b14ae576cc427e72542be6df3585d6474281ea5fdd14aa1430e600022042db72d3bacde33056323775a953ad92038704094668ed927b72e488db0005870121022320f1cf72e7ba2cef6be32d7493ce3bd4c6a2575fe51ce260377adc165603d400000000",
       "complete": true
     }
-    $ src/bitcoin-cli sendrawtransaction 020000000001014f0a5a4094ec7e0c6018991e62decba15abd5dcbdf12dfcb8b55119a2e6f1fb60000000000feffffff0200e1f50500000000160014553c2a2fdabe5b88e9dbd899d7d0e57cc91b19befc78d71700000000160014b1ee5f7591b8fb37ca97903b388dc39a859411fc02483045022100cc102557b2b14ae576cc427e72542be6df3585d6474281ea5fdd14aa1430e600022042db72d3bacde33056323775a953ad92038704094668ed927b72e488db0005870121022320f1cf72e7ba2cef6be32d7493ce3bd4c6a2575fe51ce260377adc165603d400000000
+    $ src/dogecoin-cli sendrawtransaction 020000000001014f0a5a4094ec7e0c6018991e62decba15abd5dcbdf12dfcb8b55119a2e6f1fb60000000000feffffff0200e1f50500000000160014553c2a2fdabe5b88e9dbd899d7d0e57cc91b19befc78d71700000000160014b1ee5f7591b8fb37ca97903b388dc39a859411fc02483045022100cc102557b2b14ae576cc427e72542be6df3585d6474281ea5fdd14aa1430e600022042db72d3bacde33056323775a953ad92038704094668ed927b72e488db0005870121022320f1cf72e7ba2cef6be32d7493ce3bd4c6a2575fe51ce260377adc165603d400000000
     e51392c82e13bbfe714c73361aff14ac1a1637abf37587a562844ae5a4265adf
 
 Refilling the keypools
 ----------------------
 
 Descriptor wallets will constantly generate new addresses from the imported descriptors.
-It is not necessary to import additional keys or descriptors to refresh the keypool, Bitcoin Core will do so automatically by using the descriptors.
+It is not necessary to import additional keys or descriptors to refresh the keypool, Dogecoin Core will do so automatically by using the descriptors.
 
 Derivation Path BIP Compliance
 ==============================
 
 The instructions above use BIP 84 to derive keys used for P2WPKH addresses (bech32 addresses).
-HWI follows BIPs 44, 84, and 49. By default, descriptors will be for P2WPKH addresses with keys derived at ``m/84h/0h/0h/0`` for normal receiving keys and ``m/84h/0h/0h/1`` for change keys.
-Using the ``--addr-type legacy`` option will result in P2PKH addresses with keys derived at ``m/44h/0h/0h/0`` for normal receiving keys and ``m/44h/0h/0h/1`` for change keys.
+HWI follows BIs 44, 84, and 49. By default, descriptors will be for P2PKH addresses with keys derived at ``m/44h/0h/0h/0`` for normal receiving keys and ``m/44h/0h/0h/1`` for change keys.
+Using the ``--addr-type wit`` option will result in P2WPKH addresses with keys derived at ``m/84h/0h/0h/0`` for normal receiving keys and ``m/84h/0h/0h/1`` for change keys.
 Using the ``--addr-type sh_wit`` option will result in P2SH nested P2WPKH addresses with keys derived at ``m/49h/0h/0h/0`` for normal receiving keys and ``m/49h/0h/0h/1`` for change keys.
 
-To actually get the correct address type when using ``getnewaddress`` from Bitcoin Core, you will need to additionally set ``-addresstype=p2sh-segwit`` and ``-changetype=p2sh-segwit``.
-This can be set in the command line (as shown in the example) or in your bitcoin.conf file.
+This can be set in the command line (as shown in the example) or in your dogecoin.conf file.
 
 Alternative derivation paths can also be chosen using the ``--path`` option and specifying your own derivation path.
