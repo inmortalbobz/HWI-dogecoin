@@ -150,7 +150,7 @@ dist_builder_task:
   build_script:
     - contrib/build_bin.sh
     - contrib/build_dist.sh
-    - sha256sum dist/*
+    - sha256sum dist/*.tar.gz
 
 dist_test_task:
   matrix:
