@@ -107,8 +107,8 @@ class ExtendedKey(object):
     A BIP 32 extended public key.
     """
 
-    MAINNET_PUBLIC = b'\x02\xfa\xca\xfd'
-    MAINNET_PRIVATE = b'\x02\xfa\xc3\x98'
+    MAINNET_PUBLIC = b'\x04\x88\xB2\x1E'
+    MAINNET_PRIVATE = b'\x04\x88\xAD\xE4'
     TESTNET_PUBLIC = b'\x04\x35\x87\xCF'
     TESTNET_PRIVATE = b'\x04\x35\x83\x94'
 
