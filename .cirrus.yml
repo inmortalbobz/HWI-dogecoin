@@ -126,7 +126,8 @@ wine_builder_task:
     dockerfile: contrib/build.Dockerfile
   build_script:
     - contrib/build_wine.sh
-    - sha256sum dist/*
+    - ls dist/*
+    - sha256sum dist/*.tar.gz ||:
 
 dogecoind_builder_task:
   << : *BITCOIND_CACHE_TEMPLATE
@@ -150,7 +151,7 @@ dist_builder_task:
   build_script:
     - contrib/build_bin.sh
     - contrib/build_dist.sh
-    - sha256sum dist/*.tar.gz
+    - sha256sum dist/*.tar.gz ||:
 
 dist_test_task:
   matrix:

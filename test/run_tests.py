@@ -50,7 +50,7 @@ parser.add_argument('--keepkey-path', dest='keepkey_path', help='Path to Keepkey
 parser.add_argument('--ledger-path', dest='ledger_path', help='Path to Ledger emulator', default='work/speculos/speculos.py')
 
 parser.add_argument('--all', help='Run tests on all existing simulators', default=False, action='store_true')
-parser.add_argument('--dogecoind', help='Path to dogecoind', default='work/bitcoin/src/dogecoind')
+parser.add_argument('--dogecoind', help='Path to dogecoind', default='work/dogecoin/src/dogecoind')
 parser.add_argument('--interface', help='Which interface to send commands over', choices=['library', 'cli', 'bindist', 'stdin'], default='library')
 
 parser.add_argument("--device-only", help="Only run device tests", action="store_true")
