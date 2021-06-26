@@ -50,7 +50,7 @@ parser.add_argument('--bitbox01-path', dest='bitbox01_path', help='Path to Digit
 parser.add_argument('--ledger-path', dest='ledger_path', help='Path to Ledger emulator', default='work/speculos/speculos.py')
 
 parser.add_argument('--all', help='Run tests on all existing simulators', default=False, action='store_true')
-parser.add_argument('--bitcoind', help='Path to bitcoind', default='work/bitcoin/src/bitcoind')
+parser.add_argument('--dogecoind', help='Path to dogecoind', default='work/bitcoin/src/dogecoind')
 parser.add_argument('--interface', help='Which interface to send commands over', choices=['library', 'cli', 'bindist', 'stdin'], default='library')
 
 parser.add_argument("--device-only", help="Only run device tests", action="store_true")
@@ -91,7 +91,7 @@ else:
 
 if args.trezor_1 or args.trezor_t or args.coldcard or args.ledger or args.keepkey or args.bitbox01:
     # Start bitcoind
-    rpc, userpass = start_bitcoind(args.bitcoind)
+    rpc, userpass = start_bitcoind(args.dogecoind)
 
     if success and args.bitbox01:
         success &= digitalbitbox_test_suite(args.bitbox01_path, rpc, userpass, args.interface)

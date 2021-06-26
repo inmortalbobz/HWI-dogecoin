@@ -19,7 +19,7 @@ class VerifyMessage(p.MessageType):
         address: str,
         signature: bytes,
         message: bytes,
-        coin_name: str = "Bitcoin",
+        coin_name: str = "Dogecoin",
     ) -> None:
         self.address = address
         self.signature = signature
@@ -32,5 +32,5 @@ class VerifyMessage(p.MessageType):
             1: ('address', p.UnicodeType, p.FLAG_REQUIRED),
             2: ('signature', p.BytesType, p.FLAG_REQUIRED),
             3: ('message', p.BytesType, p.FLAG_REQUIRED),
-            4: ('coin_name', p.UnicodeType, "Bitcoin"),  # default=Bitcoin
+            4: ('coin_name', p.UnicodeType, "Dogecoin"),  # default=Dogecoin
         }

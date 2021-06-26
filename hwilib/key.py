@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) 2020 The HWI developers
+# Copyright (c) 2021 The Dogecoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -106,8 +107,8 @@ class ExtendedKey(object):
     A BIP 32 extended public key.
     """
 
-    MAINNET_PUBLIC = b'\x04\x88\xB2\x1E'
-    MAINNET_PRIVATE = b'\x04\x88\xAD\xE4'
+    MAINNET_PUBLIC = b'\x02\xfa\xca\xfd'
+    MAINNET_PRIVATE = b'\x02\xfa\xc3\x98'
     TESTNET_PUBLIC = b'\x04\x35\x87\xCF'
     TESTNET_PRIVATE = b'\x04\x35\x83\x94'
 
@@ -372,13 +373,13 @@ def get_bip44_purpose(addrtype: AddressType) -> int:
 
 def get_bip44_chain(chain: Chain) -> int:
     """
-    Determine the BIP 44 coin type based on the Bitcoin chain type.
+    Determine the BIP 44 coin type based on the Dogecoin chain type.
 
-    For the Bitcoin mainnet chain, this returns 0. For the other chains, this returns 1.
+    For the Dogecoin mainnet chain, this returns 3. For the other chains, this returns 1.
 
     :param chain: The chain
     """
     if chain == Chain.MAIN:
-        return 0
+        return 3
     else:
         return 1

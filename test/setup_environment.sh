@@ -26,7 +26,7 @@ while [[ $# -gt 0 ]]; do
         build_keepkey=1
         shift
         ;;
-        --bitcoind)
+        --dogecoind)
         build_bitcoind=1
         shift
         ;;
@@ -246,11 +246,11 @@ if [[ -n ${build_bitcoind} ]]; then
     # Clone bitcoind if it doesn't exist, or update it if it does
     bitcoind_setup_needed=false
     if [ ! -d "bitcoin" ]; then
-        git clone https://github.com/bitcoin/bitcoin.git
-        cd bitcoin
+        git clone https://github.com/dogecoin/dogecoin.git
+        cd dogecoin
         bitcoind_setup_needed=true
     else
-        cd bitcoin
+        cd dogecoin
         git fetch
 
         # Determine if we need to pull. From https://stackoverflow.com/a/3278427
@@ -272,5 +272,5 @@ if [[ -n ${build_bitcoind} ]]; then
         ./autogen.sh
         ./configure --with-incompatible-bdb --with-miniupnpc=no --without-gui --disable-zmq --disable-tests --disable-bench --with-libs=no --with-utils=no
     fi
-    make src/bitcoind
+    make src/dogecoind
 fi

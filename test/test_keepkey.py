@@ -337,11 +337,11 @@ def keepkey_test_suite(emulator, rpc, userpass, interface):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Test Keepkey implementation')
     parser.add_argument('emulator', help='Path to the Keepkey emulator')
-    parser.add_argument('bitcoind', help='Path to bitcoind binary')
+    parser.add_argument('dogecoind', help='Path to dogecoind binary')
     parser.add_argument('--interface', help='Which interface to send commands over', choices=['library', 'cli', 'bindist'], default='library')
     args = parser.parse_args()
 
     # Start bitcoind
-    rpc, userpass = start_bitcoind(args.bitcoind)
+    rpc, userpass = start_bitcoind(args.dogecoind)
 
     sys.exit(not keepkey_test_suite(args.emulator, rpc, userpass, args.interface))

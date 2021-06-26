@@ -20,7 +20,7 @@ class GetPublicKey(p.MessageType):
         address_n: List[int] = None,
         ecdsa_curve_name: str = None,
         show_display: bool = None,
-        coin_name: str = "Bitcoin",
+        coin_name: str = "Dogecoin",
         script_type: EnumTypeInputScriptType = 0,
         ignore_xpub_magic: bool = None,
     ) -> None:
@@ -37,7 +37,7 @@ class GetPublicKey(p.MessageType):
             1: ('address_n', p.UVarintType, p.FLAG_REPEATED),
             2: ('ecdsa_curve_name', p.UnicodeType, None),
             3: ('show_display', p.BoolType, None),
-            4: ('coin_name', p.UnicodeType, "Bitcoin"),  # default=Bitcoin
+            4: ('coin_name', p.UnicodeType, "Dogecoin"),  # default=Dogecoin
             5: ('script_type', p.EnumType("InputScriptType", (0, 1, 2, 3, 4)), 0),  # default=SPENDADDRESS
             6: ('ignore_xpub_magic', p.BoolType, None),
         }

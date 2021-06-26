@@ -4,14 +4,14 @@
 # Copyright (c) 2010-2016 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Bitcoin Object Python Serializations
+"""Dogecoin Object Python Serializations
 
 Modified from the test/test_framework/mininode.py file from the
-Bitcoin repository
+Dogecoin repository
 
 CTransaction,CTxIn, CTxOut, etc....:
     data structures that should map to corresponding structures in
-    bitcoin/primitives for transactions only
+    dogecoin/primitives for transactions only
 """
 
 import copy

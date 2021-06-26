@@ -19,7 +19,7 @@ class SignTx(p.MessageType):
         *,
         outputs_count: int,
         inputs_count: int,
-        coin_name: str = "Bitcoin",
+        coin_name: str = "Dogecoin",
         version: int = 1,
         lock_time: int = 0,
         expiry: int = None,
@@ -46,7 +46,7 @@ class SignTx(p.MessageType):
         return {
             1: ('outputs_count', p.UVarintType, p.FLAG_REQUIRED),
             2: ('inputs_count', p.UVarintType, p.FLAG_REQUIRED),
-            3: ('coin_name', p.UnicodeType, "Bitcoin"),  # default=Bitcoin
+            3: ('coin_name', p.UnicodeType, "Dogecoin"),  # default=Dogecoin
             4: ('version', p.UVarintType, 1),  # default=1
             5: ('lock_time', p.UVarintType, 0),  # default=0
             6: ('expiry', p.UVarintType, None),

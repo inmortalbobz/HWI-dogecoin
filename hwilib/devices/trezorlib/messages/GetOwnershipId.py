@@ -20,7 +20,7 @@ class GetOwnershipId(p.MessageType):
         self,
         *,
         address_n: List[int] = None,
-        coin_name: str = "Bitcoin",
+        coin_name: str = "Dogecoin",
         multisig: MultisigRedeemScriptType = None,
         script_type: EnumTypeInputScriptType = 0,
     ) -> None:
@@ -33,7 +33,7 @@ class GetOwnershipId(p.MessageType):
     def get_fields(cls) -> Dict:
         return {
             1: ('address_n', p.UVarintType, p.FLAG_REPEATED),
-            2: ('coin_name', p.UnicodeType, "Bitcoin"),  # default=Bitcoin
+            2: ('coin_name', p.UnicodeType, "Dogecoin"),  # default=Dogecoin
             3: ('multisig', MultisigRedeemScriptType, None),
             4: ('script_type', p.EnumType("InputScriptType", (0, 1, 2, 3, 4)), 0),  # default=SPENDADDRESS
         }

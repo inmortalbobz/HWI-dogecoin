@@ -9,7 +9,7 @@ HWI is distributed in 2 different ways:
 Binaries
 ========
 
-The self-contained binaries are availabe for download from the `releases page <https://github.com/bitcoin-core/HWI/releases>`_.
+The self-contained binaries are availabe for download from the `releases page <https://github.com/rnicoll/HWI/releases>`_.
 
 Download and extract the package for your operating system and architecture.
 The ``hwi`` binary (``hwi.exe`` for Windows) is a command line tool and executed from the terminal (command prompt in Windows).
@@ -18,7 +18,7 @@ The ``hwi-qt`` binary (``hwi-qt.exe`` for Windows) is a GUI tool and can be exec
 Python Package
 ==============
 
-The python packages are distributed both from the `releases page <https://github.com/bitcoin-core/HWI/releases>`_ and from `PyPi <https://pypi.org/project/hwi/>`_.
+The python packages are distributed both from the `releases page <https://github.com/rnicoll/HWI/releases>`_ and from `PyPi <https://pypi.org/project/hwi/>`_.
 
 In either case, make sure that you have installed ``pip`` and that it is update to date.
 

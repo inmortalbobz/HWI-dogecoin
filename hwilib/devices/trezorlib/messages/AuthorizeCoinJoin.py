@@ -23,7 +23,7 @@ class AuthorizeCoinJoin(p.MessageType):
         max_total_fee: int,
         address_n: List[int] = None,
         fee_per_anonymity: int = None,
-        coin_name: str = "Bitcoin",
+        coin_name: str = "Dogecoin",
         script_type: EnumTypeInputScriptType = 0,
         amount_unit: EnumTypeAmountUnit = 0,
     ) -> None:
@@ -42,7 +42,7 @@ class AuthorizeCoinJoin(p.MessageType):
             2: ('max_total_fee', p.UVarintType, p.FLAG_REQUIRED),
             3: ('fee_per_anonymity', p.UVarintType, None),
             4: ('address_n', p.UVarintType, p.FLAG_REPEATED),
-            5: ('coin_name', p.UnicodeType, "Bitcoin"),  # default=Bitcoin
+            5: ('coin_name', p.UnicodeType, "Dogecoin"),  # default=Dogecoin
             6: ('script_type', p.EnumType("InputScriptType", (0, 1, 2, 3, 4)), 0),  # default=SPENDADDRESS
             11: ('amount_unit', p.EnumType("AmountUnit", (0, 1, 2, 3)), 0),  # default=BITCOIN
         }

@@ -256,7 +256,7 @@ class TrezorClient(HardwareWalletClient):
         self.type = 'Trezor'
 
     def _prepare_device(self) -> None:
-        self.coin_name = 'Bitcoin' if self.chain == Chain.MAIN else 'Testnet'
+        self.coin_name = 'Dogecoin' if self.chain == Chain.MAIN else 'Dogecoin Testnet'
         resp = self.client.refresh_features()
         # If this is a Trezor One or Keepkey, do Initialize
         if resp.model == '1' or resp.model == 'K1-14AM':
@@ -300,7 +300,7 @@ class TrezorClient(HardwareWalletClient):
         self._check_unlocked()
 
         # Get this devices master key fingerprint
-        master_key = btc.get_public_node(self.client, [0x80000000], coin_name='Bitcoin')
+        master_key = btc.get_public_node(self.client, [0x80000000], coin_name='Dogecoin')
         master_fp = get_xpub_fingerprint(master_key.xpub)
 
         # Do multiple passes for multisig
@@ -362,7 +362,7 @@ class TrezorClient(HardwareWalletClient):
                     p2wsh = True
 
                 def ignore_input() -> None:
-                    txinputtype.address_n = [0x80000000 | 84, 0x80000000 | (0 if self.chain == Chain.MAIN else 1), 0x80000000, 0, 0]
+                    txinputtype.address_n = [0x80000000 | 84, 0x80000000 | (3 if self.chain == Chain.MAIN else 1), 0x80000000, 0, 0]
                     txinputtype.multisig = None
                     txinputtype.script_type = messages.InputScriptType.SPENDWITNESS
                     inputs.append(txinputtype)
@@ -423,11 +423,11 @@ class TrezorClient(HardwareWalletClient):
             if self.chain != Chain.MAIN:
                 p2pkh_version = b'\x6f'
                 p2sh_version = b'\xc4'
-                bech32_hrp = 'tb'
+                bech32_hrp = 'tdge'
             else:
-                p2pkh_version = b'\x00'
+                p2pkh_version = b'\x24'
                 p2sh_version = b'\x05'
-                bech32_hrp = 'bc'
+                bech32_hrp = 'doge'
 
             # prepare outputs
             outputs = []
@@ -664,7 +664,7 @@ class TrezorClient(HardwareWalletClient):
 
     @trezor_exception
     def prompt_pin(self) -> bool:
-        self.coin_name = 'Bitcoin' if self.chain == Chain.MAIN else 'Testnet'
+        self.coin_name = 'Dogecoin' if self.chain == Chain.MAIN else 'Dogecoin Testnet'
         self.client.open()
         self._prepare_device()
         if not self.client.features.pin_protection:

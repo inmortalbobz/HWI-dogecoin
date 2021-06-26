@@ -4,6 +4,6 @@ Example Usage
 .. toctree::
    :maxdepth: 1
 
-   bitcoin-core-usage
+   dogecoin-core-usage
    examples
    walkthrough/walkthrough

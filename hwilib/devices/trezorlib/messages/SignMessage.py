@@ -19,7 +19,7 @@ class SignMessage(p.MessageType):
         *,
         message: bytes,
         address_n: List[int] = None,
-        coin_name: str = "Bitcoin",
+        coin_name: str = "Dogecoin",
         script_type: EnumTypeInputScriptType = 0,
     ) -> None:
         self.address_n = address_n if address_n is not None else []
@@ -32,6 +32,6 @@ class SignMessage(p.MessageType):
         return {
             1: ('address_n', p.UVarintType, p.FLAG_REPEATED),
             2: ('message', p.BytesType, p.FLAG_REQUIRED),
-            3: ('coin_name', p.UnicodeType, "Bitcoin"),  # default=Bitcoin
+            3: ('coin_name', p.UnicodeType, "Dogecoin"),  # default=Dogecoin
             4: ('script_type', p.EnumType("InputScriptType", (0, 1, 2, 3, 4)), 0),  # default=SPENDADDRESS
         }

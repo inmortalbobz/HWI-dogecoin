@@ -137,8 +137,8 @@ class LedgerClient(HardwareWalletClient):
 
         self.app = btchip(self.dongle)
 
-        if self.app.getAppName() not in ["Bitcoin", "Bitcoin Test", "app"]:
-            raise UnknownDeviceError("Ledger is not in either the Bitcoin or Bitcoin Testnet app")
+        if self.app.getAppName() not in ["Dogecoin", "Dogecoin Test", "app"]:
+            raise UnknownDeviceError("Ledger is not in either the Dogecoin or Dogecoin Testnet app")
 
     @ledger_exception
     def get_pubkey_at_path(self, path: str) -> ExtendedKey:
