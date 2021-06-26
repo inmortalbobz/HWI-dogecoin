@@ -27,27 +27,6 @@ device_matrix_template: &DEVICE_MATRIX_TEMPLATE
       folder: test/work/trezor-firmware
       << : *SIM_CACHE_FPR_TEMPLATE
   - env:
-      DEVICE: --coldcard
-    depends_on:
-      - Coldcard Sim Builder
-      - dist_builder
-      - bitcoind_builder
-    sim_work_cache:
-      folder: test/work/firmware
-      << : *SIM_CACHE_FPR_TEMPLATE
-    sim_install_script:
-      - poetry run pip install -r test/work/firmware/requirements.txt
-      - pip install -r test/work/firmware/requirements.txt
-  - env:
-      DEVICE: --bitbox01
-    depends_on:
-      - Bitbox01 Sim Builder
-      - dist_builder
-      - bitcoind_builder
-    sim_work_cache:
-      folder: test/work/mcu
-      << : *SIM_CACHE_FPR_TEMPLATE
-  - env:
       DEVICE: --ledger
     depends_on:
       - Ledger Sim Builder
@@ -81,18 +60,6 @@ sim_build_matrix_template: &SIM_BUILD_MATRIX_TEMPLATE
     name: Trezor T Sim Builder
     sim_work_cache:
       folder: test/work/trezor-firmware
-      << : *SIM_CACHE_FPR_TEMPLATE
-  - env:
-      DEVICE: --coldcard
-    name: Coldcard Sim Builder
-    sim_work_cache:
-      folder: test/work/firmware
-      << : *SIM_CACHE_FPR_TEMPLATE
-  - env:
-      DEVICE: --bitbox01
-    name: Bitbox01 Sim Builder
-    sim_work_cache:
-      folder: test/work/mcu
       << : *SIM_CACHE_FPR_TEMPLATE
   - env:
       DEVICE: --ledger
