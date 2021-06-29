@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.9
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
@@ -63,7 +63,7 @@ COPY test/data/coldcard-multisig.patch test/data/coldcard-multisig.patch
 # One by one to allow for intermediate caching of successful builds
 RUN cd test; ./setup_environment.sh --trezor-1
 RUN cd test; ./setup_environment.sh --trezor-t
-RUN cd test; ./setup_environment.sh --coldcard
+# RUN cd test; ./setup_environment.sh --coldcard
 RUN cd test; ./setup_environment.sh --bitbox01
 RUN cd test; ./setup_environment.sh --ledger
 RUN cd test; ./setup_environment.sh --keepkey
