@@ -16,7 +16,7 @@ RUN apt-get install -y \
     qemu-user-static \
     libsdl2-dev \
     libsdl2-image-dev \
-    gcc-arm-none-eabi \
+    gcc-arm* \
     libnewlib-arm-none-eabi \
     gcc-arm-linux-gnueabihf \
     libc6-dev-armhf-cross \
@@ -32,9 +32,12 @@ RUN apt-get install -y \
     libboost-test-dev \
     libboost-thread-dev \
     protobuf-compiler \
-    cython3
+    cython3 \
+    clang
 
 RUN pip install poetry flake8
+
+# Encountered dependency error with gcc-arm-none-eabi that was fixed with gcc-arm*
 
 ####################
 # Local build/test steps
@@ -48,32 +51,32 @@ RUN pip install poetry flake8
 # cd test; poetry run ./run_tests.py --ledger --coldcard --interface=cli --device-only
 ####################
 
-####################
-#ENV EMAIL=email
-#COPY pyproject.toml pyproject.toml
-#RUN poetry run pip install construct pyelftools mnemonic jsonschema
-#
-## Set up environments first to take advantage of layer caching
-#RUN mkdir test
-#COPY test/setup_environment.sh test/setup_environment.sh
-#COPY test/data/coldcard-multisig.patch test/data/coldcard-multisig.patch
-## One by one to allow for intermediate caching of successful builds
-#RUN cd test; ./setup_environment.sh --trezor-1
-#RUN cd test; ./setup_environment.sh --trezor-t
-#RUN cd test; ./setup_environment.sh --coldcard
-#RUN cd test; ./setup_environment.sh --bitbox01
-#RUN cd test; ./setup_environment.sh --ledger
-#RUN cd test; ./setup_environment.sh --keepkey
-#RUN cd test; ./setup_environment.sh --bitcoind
-#
-## Once everything has been built, put rest of files in place
-## which have higher turn-over.
-#COPY test/ test/
-#COPY hwi.py hwi-qt.py README.md /
-#COPY hwilib/ /hwilib/
-#RUN poetry install
-#
-####################
+###################
+ENV EMAIL=email
+COPY pyproject.toml pyproject.toml
+RUN poetry run pip install construct pyelftools mnemonic jsonschema
+
+# Set up environments first to take advantage of layer caching
+RUN mkdir test
+COPY test/setup_environment.sh test/setup_environment.sh
+COPY test/data/coldcard-multisig.patch test/data/coldcard-multisig.patch
+# One by one to allow for intermediate caching of successful builds
+RUN cd test; ./setup_environment.sh --trezor-1
+RUN cd test; ./setup_environment.sh --trezor-t
+RUN cd test; ./setup_environment.sh --coldcard
+RUN cd test; ./setup_environment.sh --bitbox01
+RUN cd test; ./setup_environment.sh --ledger
+RUN cd test; ./setup_environment.sh --keepkey
+RUN cd test; ./setup_environment.sh --dogecoind
+
+# Once everything has been built, put rest of files in place
+# which have higher turn-over.
+COPY test/ test/
+COPY hwi.py hwi-qt.py README.md /
+COPY hwilib/ /hwilib/
+RUN poetry install
+
+###################
 
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8

@@ -49,6 +49,14 @@ mkdir -p work
 cd work
 
 if [[ -n ${build_trezor_1} || -n ${build_trezor_t} ]]; then
+    # First check to see if cargo is installed:
+    if ! which rustup >/dev/null 2>&1; then
+        curl https://sh.rustup.rs -sSf | sh -s -- -y
+        source ~/.cargo/env
+    else
+        rustup update
+    fi
+    
     # Clone trezor-firmware if it doesn't exist, or update it if it does
     if [ ! -d "trezor-firmware" ]; then
         git clone --recursive https://github.com/trezor/trezor-firmware.git
@@ -268,8 +276,8 @@ if [[ -n ${build_dogecoind} ]]; then
 
     # Build dogecoind. This is super slow, but it is cached so it runs fairly quickly.
     if [ "$dogecoind_setup_needed" == true ] ; then
-        ./autogen.sh
-        ./configure --with-incompatible-bdb --with-miniupnpc=no --without-gui --disable-zmq --disable-tests --disable-bench --with-libs=no --with-utils=no
+        ./autogen.sh && \
+        ./configure --with-incompatible-bdb --with-miniupnpc=no --without-gui --disable-zmq --disable-tests --disable-bench --with-libs=no --with-utils=no && \
+    	make
     fi
-    make src/dogecoind
 fi
