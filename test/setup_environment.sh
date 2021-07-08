@@ -33,6 +33,8 @@ while [[ $# -gt 0 ]]; do
         --all)
         build_trezor_1=1
         build_trezor_t=1
+        build_coldcard=1
+        build_bitbox01=1
         build_ledger=1
         build_keepkey=1
         build_dogecoind=1
@@ -134,6 +136,8 @@ if [[ -n ${build_coldcard} ]]; then
     fi
     # Apply patch to make simulator work in linux environments
     git am ../../data/coldcard-multisig.patch
+
+    # We need to build mpy-cross here before we can proceed with making coldcard
 
     # Build the simulator. This is cached, but it is also fast
     poetry run pip install -r requirements.txt

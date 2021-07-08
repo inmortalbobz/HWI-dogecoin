@@ -61,9 +61,9 @@ RUN mkdir test
 COPY test/setup_environment.sh test/setup_environment.sh
 COPY test/data/coldcard-multisig.patch test/data/coldcard-multisig.patch
 # One by one to allow for intermediate caching of successful builds
-RUN cd test; ./setup_environment.sh --trezor-1
-RUN cd test; ./setup_environment.sh --trezor-t
-# RUN cd test; ./setup_environment.sh --coldcard
+# RUN cd test; ./setup_environment.sh --trezor-1
+# RUN cd test; ./setup_environment.sh --trezor-t
+RUN cd test; ./setup_environment.sh --coldcard
 RUN cd test; ./setup_environment.sh --bitbox01
 RUN cd test; ./setup_environment.sh --ledger
 RUN cd test; ./setup_environment.sh --keepkey
