@@ -464,7 +464,7 @@ def enumerate(password: str = '') -> List[Dict[str, Any]]:
                     else:
                         raise
                 except UnknownDeviceError:
-                    # This only happens if the ledger is not in the Bitcoin app, so skip it
+                    # This only happens if the ledger is not in the Dogecoin app, so skip it
                     continue
 
             if client:
