@@ -54,7 +54,7 @@ version = "5.3.0"
 description = "Python library for bitbox02 communication"
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.9.6"
 
 [package.dependencies]
 base58 = ">=2.0.0"
@@ -106,7 +106,7 @@ version = "3.4.6"
 description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.9.6"
 
 [package.dependencies]
 cffi = ">=1.12"
@@ -194,10 +194,10 @@ version = "3.4.0"
 description = "Read metadata from Python packages"
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.9.6"
 
 [package.dependencies]
-typing-extensions = {version = ">=3.6.4", markers = "python_version < \"3.8\""}
+typing-extensions = {version = ">=3.6.4", markers = "python_version < \"3.9.6\""}
 zipp = ">=0.5"
 
 [package.extras]
@@ -653,7 +653,7 @@ version = "3.4.0"
 description = "Backport of pathlib-compatible object wrapper for zip files"
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.9.6"
 
 [package.extras]
 docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
@@ -664,7 +664,7 @@ qt = ["pyside2"]
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.6,<3.10"
+python-versions = "^3.9.6,<3.10"
 content-hash = "b71f6b60376e4fdc7bdd31a5ebed10d14cb86db047be5b95dd72123d85ccf814"
 
 [metadata.files]
