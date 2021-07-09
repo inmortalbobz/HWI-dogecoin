@@ -1,7 +1,7 @@
 #! /bin/bash
 # Script for building standalone binary releases deterministically
 
-set -ex
+set -exec
 
 eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"

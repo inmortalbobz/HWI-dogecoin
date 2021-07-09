@@ -281,7 +281,7 @@ if [[ -n ${build_dogecoind} ]]; then
     # Build dogecoind. This is super slow, but it is cached so it runs fairly quickly.
     if [ "$dogecoind_setup_needed" == true ] ; then
         ./autogen.sh && \
-        ./configure --with-incompatible-bdb --with-miniupnpc=no --without-gui --disable-zmq --disable-tests --disable-bench --with-libs=no --with-utils=no && \
+        ./configure --prefix=$PWD/depends/x86_64-pc-linux-gnu --with-incompatible-bdb --with-miniupnpc=no --without-gui --disable-zmq --disable-tests --disable-bench --with-libs=no --with-utils=no && \
     	make
     fi
 fi
