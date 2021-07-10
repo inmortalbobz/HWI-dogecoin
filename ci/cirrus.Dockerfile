@@ -1,4 +1,4 @@
-FROM python:3.9.6
+FROM python:3.8.5
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
@@ -29,7 +29,6 @@ RUN apt-get install -y \
     libevent-dev \
     libdb-dev \
     libdb++-dev \
-    libboost-all-dev \
     protobuf-compiler \
     cython3 \
     clang
@@ -45,8 +44,8 @@ RUN pip install poetry flake8
 # then build the docker image and interactively run the tests
 # as needed.
 # e.g.,
-# docker build -f ci/cirrus.Dockerfile -t hwi_test .
-# docker run -it --entrypoint /bin/bash hwi_tst
+# docker build -f ci/cirrus.Dockerfile -t hwi_test_dogecoin .
+# docker run -it --entrypoint /bin/bash hwi_test_dogecoin
 # cd test; poetry run ./run_tests.py --ledger --interface=cli --device-only
 ####################
 
@@ -60,12 +59,12 @@ RUN mkdir test
 COPY test/setup_environment.sh test/setup_environment.sh
 COPY test/data/coldcard-multisig.patch test/data/coldcard-multisig.patch
 # One by one to allow for intermediate caching of successful builds
-# RUN cd test; ./setup_environment.sh --trezor-1
-# RUN cd test; ./setup_environment.sh --trezor-t
+RUN cd test; ./setup_environment.sh --trezor-1
+RUN cd test; ./setup_environment.sh --trezor-t
 # RUN cd test; ./setup_environment.sh --coldcard
-# RUN cd test; ./setup_environment.sh --bitbox01
-# RUN cd test; ./setup_environment.sh --ledger
-# RUN cd test; ./setup_environment.sh --keepkey
+RUN cd test; ./setup_environment.sh --bitbox01
+RUN cd test; ./setup_environment.sh --ledger
+RUN cd test; ./setup_environment.sh --keepkey
 RUN cd test; ./setup_environment.sh --dogecoind
 
 # Once everything has been built, put rest of files in place

@@ -109,46 +109,46 @@ if [[ -n ${build_trezor_1} || -n ${build_trezor_t} ]]; then
     cd ..
 fi
 
-if [[ -n ${build_coldcard} ]]; then
-    # Clone coldcard firmware if it doesn't exist, or update it if it does
-    coldcard_setup_needed=false
-    if [ ! -d "firmware" ]; then
-        git clone --recursive https://github.com/Coldcard/firmware.git
-        cd firmware
-        coldcard_setup_needed=true
-    else
-        cd firmware
-        git reset --hard HEAD~2 # Undo git-am for checking and updating
-        git fetch
+# if [[ -n ${build_coldcard} ]]; then
+#     # Clone coldcard firmware if it doesn't exist, or update it if it does
+#     coldcard_setup_needed=false
+#     if [ ! -d "firmware" ]; then
+#         git clone --recursive https://github.com/Coldcard/firmware.git
+#         cd firmware
+#         coldcard_setup_needed=true
+#     else
+#         cd firmware
+#         git reset --hard HEAD~2 # Undo git-am for checking and updating
+#         git fetch
 
-        # Determine if we need to pull. From https://stackoverflow.com/a/3278427
-        UPSTREAM=${1:-'@{u}'}
-        LOCAL=$(git rev-parse @)
-        REMOTE=$(git rev-parse "$UPSTREAM")
-        BASE=$(git merge-base @ "$UPSTREAM")
+#         # Determine if we need to pull. From https://stackoverflow.com/a/3278427
+#         UPSTREAM=${1:-'@{u}'}
+#         LOCAL=$(git rev-parse @)
+#         REMOTE=$(git rev-parse "$UPSTREAM")
+#         BASE=$(git merge-base @ "$UPSTREAM")
 
-        if [ $LOCAL = $REMOTE ]; then
-            echo "Up-to-date"
-        elif [ $LOCAL = $BASE ]; then
-            git pull
-            coldcard_setup_needed=true
-        fi
-    fi
-    # Apply patch to make simulator work in linux environments
-    git am ../../data/coldcard-multisig.patch
+#         if [ $LOCAL = $REMOTE ]; then
+#             echo "Up-to-date"
+#         elif [ $LOCAL = $BASE ]; then
+#             git pull
+#             coldcard_setup_needed=true
+#         fi
+#     fi
+#     # Apply patch to make simulator work in linux environments
+#     git am ../../data/coldcard-multisig.patch
 
-    # We need to build mpy-cross here before we can proceed with making coldcard
+#     # We need to build mpy-cross here before we can proceed with making coldcard
 
-    # Build the simulator. This is cached, but it is also fast
-    poetry run pip install -r requirements.txt
-    pip install -r requirements.txt
-    cd unix
-    if [ "$coldcard_setup_needed" == true ] ; then
-        make setup
-    fi
-    make
-    cd ../..
-fi
+#     # Build the simulator. This is cached, but it is also fast
+#     poetry run pip install -r requirements.txt
+#     pip install -r requirements.txt
+#     cd unix
+#     if [ "$coldcard_setup_needed" == true ] ; then
+#         make setup
+#     fi
+#     make
+#     cd ../..
+# fi
 
 if [[ -n ${build_bitbox01} ]]; then
     # Clone digital bitbox firmware if it doesn't exist, or update it if it does
@@ -222,8 +222,8 @@ if [[ -n ${build_keepkey} ]]; then
 fi
 
 if [[ -n ${build_ledger} ]]; then
-    poetry run pip install construct mnemonic pyelftools jsonschema
-    pip install construct mnemonic pyelftools jsonschema
+    poetry run pip install construct mnemonic pyelftools jsonschema flask
+    pip install construct mnemonic pyelftools jsonschema flask
     # Clone ledger simulator Speculos if it doesn't exist, or update it if it does
     if [ ! -d "speculos" ]; then
         git clone --recursive https://github.com/LedgerHQ/speculos.git
@@ -280,8 +280,10 @@ if [[ -n ${build_dogecoind} ]]; then
 
     # Build dogecoind. This is super slow, but it is cached so it runs fairly quickly.
     if [ "$dogecoind_setup_needed" == true ] ; then
+        make -C depends download-linux NO_QT=1 && \
+        make -j4 -C depends HOST=x86_64-pc-linux-gnu NO_QT=1 && \
         ./autogen.sh && \
-        ./configure --prefix=$PWD/depends/x86_64-pc-linux-gnu --with-incompatible-bdb --with-miniupnpc=no --without-gui --disable-zmq --disable-tests --disable-bench --with-libs=no --with-utils=no && \
-    	make
+        ./configure --prefix=$PWD/depends/x86_64-pc-linux-gnu --with-incompatible-bdb --with-miniupnpc=no --without-gui --disable-zmq --disable-tests --disable-bench --with-utils=no && \
+        make
     fi
 fi

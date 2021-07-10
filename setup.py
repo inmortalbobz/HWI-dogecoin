@@ -19,7 +19,7 @@ install_requires = \
 ['bitbox02>=5.3.0,<6.0.0',
  'ecdsa>=0,<1',
  'hidapi>=0,<1',
- 'libusb1>=1.7,<2.0',
+ 'libusb1>=1.9.3,<2.0',
  'mnemonic>=0,<1',
  'pyaes>=1.6,<2.0',
  'typing-extensions>=3.7,<4.0']
@@ -46,7 +46,7 @@ setup_kwargs = {
     'install_requires': install_requires,
     'extras_require': extras_require,
     'entry_points': entry_points,
-    'python_requires': '>=3.9.6,<3.10',
+    'python_requires': '>=3.8.5,<3.10',
 }
 
 

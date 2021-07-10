@@ -39,7 +39,7 @@ COPY contrib/reproducible-python.diff /opt/reproducible-python.diff
 ENV PYTHON_CONFIGURE_OPTS="--enable-shared"
 ENV BUILD_DATE="Jan  1 2019"
 ENV BUILD_TIME="00:00:00"
-RUN eval "$(pyenv init --path)" && eval "$(pyenv virtualenv-init -)" && cat /opt/reproducible-python.diff | pyenv install -kp 3.9.6
+RUN eval "$(pyenv init --path)" && eval "$(pyenv virtualenv-init -)" && cat /opt/reproducible-python.diff | pyenv install -kp 3.8.5
 
 RUN dpkg --add-architecture i386
 RUN wget -nc https://dl.winehq.org/wine-builds/winehq.key

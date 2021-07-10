@@ -12,7 +12,7 @@ pip install poetry
 poetry install -E qt
 
 # We also need to change the timestamps of all of the base library files
-lib_dir=`pyenv root`/versions/3.9.6/lib/python3.9
+lib_dir=`pyenv root`/versions/3.8.5/lib/python3.8
 TZ=UTC find ${lib_dir} -name '*.py' -type f -execdir touch -t "201901010000.00" '{}' \;
 
 # Make the standalone binary
