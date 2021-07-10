@@ -130,7 +130,7 @@ class DeviceTestCase(unittest.TestCase):
         wallet_name = '{}_{}_test'.format(self.full_type, self.id())
         self.rpc.createwallet(wallet_name=wallet_name, disable_private_keys=True, descriptors=True)
         self.wrpc = AuthServiceProxy('http://{}@127.0.0.1:18443/wallet/{}'.format(self.rpc_userpass, wallet_name))
-        self.wpk_rpc = AuthServiceProxy('http://{}@127.0.0.1:18443/wallet/supply'.format(self.rpc_userpass))
+        self.wpk_rpc = AuthServiceProxy(service_url='http://{}@127.0.0.1:18443/wallet/supply'.format(self.rpc_userpass), timeout=240)
 
     def setUp(self):
         self.emulator.start()
