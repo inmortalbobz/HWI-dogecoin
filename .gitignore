@@ -5,6 +5,7 @@ dist/
 hwi.egg-info/
 test/emulator.img
 test/work
+work/
 pip-wheel-metadata
 .mypy_cache/
 

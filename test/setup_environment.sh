@@ -283,7 +283,7 @@ if [[ -n ${build_dogecoind} ]]; then
         make -C depends download-linux NO_QT=1 && \
         make -j4 -C depends HOST=x86_64-pc-linux-gnu NO_QT=1 && \
         ./autogen.sh && \
-        ./configure --prefix=$PWD/depends/x86_64-pc-linux-gnu --with-incompatible-bdb --with-miniupnpc=no --without-gui --disable-zmq --disable-tests --disable-bench --with-utils=no && \
-        make
+        ./configure --prefix=$PWD/depends/x86_64-pc-linux-gnu --with-incompatible-bdb --with-miniupnpc=no --without-gui --disable-zmq --disable-tests --disable-bench --with-utils=no
     fi
+    make
 fi
