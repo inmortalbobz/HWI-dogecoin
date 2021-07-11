@@ -52,32 +52,32 @@ RUN pip install poetry flake8
 # cd test; poetry run ./run_tests.py --ledger --interface=cli --device-only
 ####################
 
-# ###################
-# ENV EMAIL=email
-# COPY pyproject.toml pyproject.toml
-# RUN poetry run pip install construct pyelftools mnemonic jsonschema
+###################
+ENV EMAIL=email
+COPY pyproject.toml pyproject.toml
+RUN poetry run pip install construct pyelftools mnemonic jsonschema
 
-# # Set up environments first to take advantage of layer caching
-# RUN mkdir test
-# COPY test/setup_environment.sh test/setup_environment.sh
-# # COPY test/data/coldcard-multisig.patch test/data/coldcard-multisig.patch
-# # One by one to allow for intermediate caching of successful builds
-# # RUN cd test; ./setup_environment.sh --trezor-1
-# # RUN cd test; ./setup_environment.sh --trezor-t
-# # RUN cd test; ./setup_environment.sh --coldcard
-# # RUN cd test; ./setup_environment.sh --bitbox01
+# Set up environments first to take advantage of layer caching
+RUN mkdir test
+COPY test/setup_environment.sh test/setup_environment.sh
+COPY test/data/coldcard-multisig.patch test/data/coldcard-multisig.patch
+# One by one to allow for intermediate caching of successful builds
+RUN cd test; ./setup_environment.sh --trezor-1
+RUN cd test; ./setup_environment.sh --trezor-t
+# RUN cd test; ./setup_environment.sh --coldcard
+# RUN cd test; ./setup_environment.sh --bitbox01
 # RUN cd test; ./setup_environment.sh --ledger
-# # RUN cd test; ./setup_environment.sh --keepkey
-# RUN cd test; ./setup_environment.sh --dogecoind
+# RUN cd test; ./setup_environment.sh --keepkey
+RUN cd test; ./setup_environment.sh --dogecoind
 
-# # Once everything has been built, put rest of files in place
-# # which have higher turn-over.
-# COPY test/ test/
-# COPY hwi.py hwi-qt.py README.md /
-# COPY hwilib/ /hwilib/
-# RUN poetry install
+# Once everything has been built, put rest of files in place
+# which have higher turn-over.
+COPY test/ test/
+COPY hwi.py hwi-qt.py README.md /
+COPY hwilib/ /hwilib/
+RUN poetry install
 
-# ###################
+###################
 
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
