@@ -36,7 +36,7 @@ RUN apt-get install -y \
     cython3 \
     clang
 
-RUN pip install poetry flake8
+RUN pip install poetry flake8 flask-restful
 
 # Encountered dependency error with gcc-arm-none-eabi that was fixed with gcc-arm*
 
@@ -64,10 +64,10 @@ COPY test/data/coldcard-multisig.patch test/data/coldcard-multisig.patch
 # One by one to allow for intermediate caching of successful builds
 RUN cd test; ./setup_environment.sh --trezor-1
 RUN cd test; ./setup_environment.sh --trezor-t
-# RUN cd test; ./setup_environment.sh --coldcard
-# RUN cd test; ./setup_environment.sh --bitbox01
-# RUN cd test; ./setup_environment.sh --ledger
-# RUN cd test; ./setup_environment.sh --keepkey
+RUN cd test; ./setup_environment.sh --coldcard
+RUN cd test; ./setup_environment.sh --bitbox01
+RUN cd test; ./setup_environment.sh --ledger
+RUN cd test; ./setup_environment.sh --keepkey
 RUN cd test; ./setup_environment.sh --dogecoind
 
 # Once everything has been built, put rest of files in place
